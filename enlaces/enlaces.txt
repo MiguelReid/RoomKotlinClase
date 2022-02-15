@@ -1,0 +1,12 @@
+ENLACES DE MVVM QUE HE ENCONTRADO QUE TE EXPLICAN:
+
+https://developersol.com/android-room-koin-and-mvvm/
+
+<---------------->
+
+https://www.section.io/engineering-education/implementing-mvvm-architecture-in-android-using-kotlin/
+
+<---------------->
+EN ESTE SI MIRAIS EL README OS LO EXPLICA TAMBIEN:
+
+https://github.com/umangburman/MVVM-Room-Kotlin-Example
