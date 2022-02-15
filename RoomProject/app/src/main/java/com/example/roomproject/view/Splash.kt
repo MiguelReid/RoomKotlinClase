@@ -1,4 +1,4 @@
-package com.example.roomproject
+package com.example.roomproject.view
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
