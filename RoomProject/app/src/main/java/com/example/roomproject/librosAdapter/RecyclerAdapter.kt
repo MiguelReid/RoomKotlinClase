@@ -10,6 +10,7 @@ import com.example.roomproject.model.LibrosDataClass
 
 class RecyclerAdapter (val lista: MutableList<LibrosDataClass>): RecyclerView.Adapter<ViewHolder>() {
     //lo he cambiado lista a MutableList para q en el mainactivity lo pueda meter en el adapter
+    private var oldData = emptyList<LibrosDataClass>()//datos viejo
 
     override fun onCreateViewHolder(parent: ViewGroup,viewType: Int): ViewHolder {
         val inflater = LayoutInflater.from(parent.context).inflate(R.layout.lista_libros,parent,false)
@@ -32,5 +33,10 @@ class RecyclerAdapter (val lista: MutableList<LibrosDataClass>): RecyclerView.Ad
     fun removeAt(position: Int){
         lista.removeAt(position)
         notifyItemRemoved(position)
+    }
+
+    fun setData(dato: List<LibrosDataClass>){
+        oldData=dato
+        notifyDataSetChanged()
     }
 }

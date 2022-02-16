@@ -21,4 +21,13 @@ class MainViewModel(val libroDao:DAOLibros): ViewModel() {
         libroDao.updateLibro(id,tituloNuevo,autorNuevo)
     }
 
+    fun borrarTodo(){
+        libroDao.deleteAll()
+    }
+
+    fun consultarId(id: Int):LiveData<List<LibrosDataClass>> = libroDao.getId(id)
+
+    fun consultarTitulo(tit: String):LiveData<List<LibrosDataClass>> = libroDao.getTitulo(tit)
+
+    fun consultarAutor(au: String):LiveData<List<LibrosDataClass>> = libroDao.getAutor(au)
 }
