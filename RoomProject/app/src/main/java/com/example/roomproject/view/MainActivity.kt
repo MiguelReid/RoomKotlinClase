@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -13,17 +12,13 @@ import androidx.room.Room
 import com.example.roomproject.R
 import com.example.roomproject.databinding.ActivityMainBinding
 import com.example.roomproject.librosAdapter.RecyclerAdapter
-import com.example.roomproject.model.DAOLibros
 import com.example.roomproject.model.LibrosDataBase
 import com.example.roomproject.model.LibrosDataClass
 import com.example.roomproject.viewModel.MainViewModel
 
 class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding
-    private var viewManager = LinearLayoutManager(this)
-    private val viewModel: MainViewModel = TODO()
-    private lateinit var mainrecycler: RecyclerView
-    private lateinit var but: Button
+//    private val viewModel: MainViewModel = TODO()
 
     //No estoy seguro de si se puede reutilizar la dataclass
     lateinit var lista: MutableList<LibrosDataClass>
@@ -56,17 +51,17 @@ class MainActivity : AppCompatActivity() {
         //var modelo: MainViewModel =
         //modelo.addLibro(libro = libro)
         val datos = database.libroDao.getLibros()
-        adapter.setData(datos)
+        //adapter.setData(datos)
 
         binding.recycler.layoutManager = LinearLayoutManager(this)
         binding.recycler.setHasFixedSize(true)
-        viewModel.libroDao.getLibros().observe(this) { list ->
+      /*  viewModel.libroDao.getLibros().observe(this) { list ->
             list.let {
                 //TODO list o lista?
                 adapter.setData(it)
                 binding.recycler.adapter = adapter
             }
-        }
+        }*/
 
         //lista = database.libroDao.getLibros()
     }

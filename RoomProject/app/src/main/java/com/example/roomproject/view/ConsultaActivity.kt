@@ -1,11 +1,9 @@
 package com.example.roomproject.view
 
 import android.os.Bundle
-import android.widget.Button
 import android.widget.SearchView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
 import com.example.roomproject.databinding.ActivityConsultaBinding
 import com.example.roomproject.librosAdapter.RecyclerAdapter
@@ -15,11 +13,7 @@ import com.example.roomproject.viewModel.MainViewModel
 
 class ConsultaActivity : AppCompatActivity() {
     lateinit var binding: ActivityConsultaBinding
-
-    private var viewManager = LinearLayoutManager(this)
     private lateinit var viewModel: MainViewModel
-    private lateinit var mainrecycler: RecyclerView
-    private lateinit var but: Button
 
     //No estoy seguro de si se puede reutilizar la dataclass
     lateinit var lista: MutableList<LibrosDataClass>
