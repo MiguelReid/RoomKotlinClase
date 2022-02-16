@@ -1,12 +1,14 @@
 package com.example.roomproject.viewModel
 
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.roomproject.model.DAOLibros
 import com.example.roomproject.model.LibrosDataClass
 
-class MainViewModel(val libroDao:DAOLibros): ViewModel() {
+class MainViewModel(val libroDao:DAOLibros, application: Application): AndroidViewModel(application) {
 
     fun todosLibros():LiveData<List<LibrosDataClass>> = libroDao.getLibros()
 

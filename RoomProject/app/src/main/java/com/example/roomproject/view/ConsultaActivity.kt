@@ -46,7 +46,6 @@ class ConsultaActivity : AppCompatActivity() {
         Queremos enseñar todos los datos en el otro activity?
         */
 
-
         setUp()
     }
 

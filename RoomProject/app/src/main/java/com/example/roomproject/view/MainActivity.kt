@@ -2,9 +2,13 @@ package com.example.roomproject.view
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -15,15 +19,15 @@ import com.example.roomproject.librosAdapter.RecyclerAdapter
 import com.example.roomproject.model.LibrosDataBase
 import com.example.roomproject.model.LibrosDataClass
 import com.example.roomproject.viewModel.MainViewModel
+import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding
-//    private val viewModel: MainViewModel = TODO()
+    private lateinit var viewModel: MainViewModel
 
     //No estoy seguro de si se puede reutilizar la dataclass
     lateinit var lista: MutableList<LibrosDataClass>
     lateinit var adapter: RecyclerAdapter
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -32,6 +36,14 @@ class MainActivity : AppCompatActivity() {
         lista = mutableListOf()
         rellenarLayout()
         swipe()
+        //viewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
+        //Inicializar el viewModel da error de esta manera y con ViewModelProvider(this).get......
+        /*
+        lifecycleScope.launch{
+            val libros = app.libroDao.getLibros()
+            Log.d("Todos los libros->>>", libros.toString())
+        }
+        */
     }
 
     private fun rellenarLayout() {
@@ -55,13 +67,16 @@ class MainActivity : AppCompatActivity() {
 
         binding.recycler.layoutManager = LinearLayoutManager(this)
         binding.recycler.setHasFixedSize(true)
-      /*  viewModel.libroDao.getLibros().observe(this) { list ->
-            list.let {
-                //TODO list o lista?
-                adapter.setData(it)
-                binding.recycler.adapter = adapter
-            }
-        }*/
+        //TODO ver como hacer que el livedata pueda pasar a ser MutableList
+        //adapter = RecyclerAdapter(datos)
+        //binding.recycler.adapter = adapter
+
+        /*  viewModel.libroDao.getLibros().observe(this) { list ->
+              list.let {
+                  //list o lista?
+                  adapter.setData(it)
+              }
+          }*/
 
         //lista = database.libroDao.getLibros()
     }
@@ -88,7 +103,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     //menus
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu,menu)
         return super.onCreateOptionsMenu(menu)
     }
