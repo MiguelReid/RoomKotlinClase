@@ -1,4 +1,4 @@
-# RoomKotlinClase
+# RoomKotlin
 
 ## Pasos para crear una aplicacion basica MVVM con ROOM
 ### 1. Dependencias y setup
