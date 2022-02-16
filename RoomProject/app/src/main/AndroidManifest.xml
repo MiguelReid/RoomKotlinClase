@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.RoomProject">
         <activity
+            android:name=".InsertarLibro"
+            android:exported="false" />
+        <activity
             android:name=".view.ConsultaActivity"
             android:exported="false" />
         <activity
@@ -24,7 +27,7 @@
         </activity>
         <activity
             android:name=".view.MainActivity"
-            android:exported="false"></activity>
+            android:exported="false" />
     </application>
 
 </manifest>

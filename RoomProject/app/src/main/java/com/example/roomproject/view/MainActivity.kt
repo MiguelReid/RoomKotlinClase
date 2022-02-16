@@ -2,24 +2,20 @@ package com.example.roomproject.view
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
-import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
+import com.example.roomproject.InsertarLibro
 import com.example.roomproject.R
 import com.example.roomproject.databinding.ActivityMainBinding
 import com.example.roomproject.librosAdapter.RecyclerAdapter
 import com.example.roomproject.model.LibrosDataBase
 import com.example.roomproject.model.LibrosDataClass
 import com.example.roomproject.viewModel.MainViewModel
-import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding
@@ -36,6 +32,7 @@ class MainActivity : AppCompatActivity() {
         lista = mutableListOf()
         rellenarLayout()
         swipe()
+        listener()
         //viewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
         //Inicializar el viewModel da error de esta manera y con ViewModelProvider(this).get......
         /*
@@ -44,6 +41,13 @@ class MainActivity : AppCompatActivity() {
             Log.d("Todos los libros->>>", libros.toString())
         }
         */
+    }
+
+    private fun listener() {
+        binding.btnFloat.setOnClickListener {
+            val i = Intent(this, InsertarLibro::class.java)
+            startActivity(i)
+        }
     }
 
     private fun rellenarLayout() {
@@ -56,7 +60,6 @@ class MainActivity : AppCompatActivity() {
 
         //val libro = LibrosDataClass(titulo = "La Odisea", autor = "Homero")
 
-        database.libroDao.addLibro(LibrosDataClass(1, "La Odisea", "Homero"))
         //Cual de las dos es buena practica??
         //viewModel.libroDao.addLibro(libro)
 
@@ -104,16 +107,16 @@ class MainActivity : AppCompatActivity() {
 
     //menus
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.menu,menu)
+        menuInflater.inflate(R.menu.menu, menu)
         return super.onCreateOptionsMenu(menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when(item.itemId) {
+        when (item.itemId) {
             R.id.btn_drop -> {
                 borrar()
             }
-            R.id.btn_consulta->{
+            R.id.btn_consulta -> {
                 consulta()
             }
         }
