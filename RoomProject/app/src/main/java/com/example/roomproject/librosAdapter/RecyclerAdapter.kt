@@ -1,11 +1,9 @@
 package com.example.roomproject.librosAdapter
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.roomproject.R
-import com.example.roomproject.databinding.ActivityMainBinding
 import com.example.roomproject.model.LibrosDataClass
 
 class RecyclerAdapter (val lista: MutableList<LibrosDataClass>): RecyclerView.Adapter<ViewHolder>() {

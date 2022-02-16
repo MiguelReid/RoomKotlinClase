@@ -13,6 +13,7 @@ import androidx.room.Room
 import com.example.roomproject.R
 import com.example.roomproject.databinding.ActivityMainBinding
 import com.example.roomproject.librosAdapter.RecyclerAdapter
+import com.example.roomproject.model.DAOLibros
 import com.example.roomproject.model.LibrosDataBase
 import com.example.roomproject.model.LibrosDataClass
 import com.example.roomproject.viewModel.MainViewModel
@@ -20,7 +21,7 @@ import com.example.roomproject.viewModel.MainViewModel
 class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding
     private var viewManager = LinearLayoutManager(this)
-    private lateinit var viewModel: MainViewModel
+    private val viewModel: MainViewModel = TODO()
     private lateinit var mainrecycler: RecyclerView
     private lateinit var but: Button
 
@@ -39,19 +40,35 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun rellenarLayout() {
+
         val database = Room.databaseBuilder(
             this, LibrosDataBase::class.java, "libros_database"
         )
             .allowMainThreadQueries()
             .build()
 
-        database.libroDao.addLibro(Libros(titulo = "La Odisea", autor = "Homero"))
-        val inventario = database.libroDao.getLibros()
+        //val libro = LibrosDataClass(titulo = "La Odisea", autor = "Homero")
+
+        database.libroDao.addLibro(LibrosDataClass(1, "La Odisea", "Homero"))
+        //Cual de las dos es buena practica??
+        //viewModel.libroDao.addLibro(libro)
+
+        //var modelo: MainViewModel =
+        //modelo.addLibro(libro = libro)
+        val datos = database.libroDao.getLibros()
+        adapter.setData(datos)
 
         binding.recycler.layoutManager = LinearLayoutManager(this)
         binding.recycler.setHasFixedSize(true)
-        adapter = RecyclerAdapter(inventario)
-        binding.recycler.adapter = adapter
+        viewModel.libroDao.getLibros().observe(this) { list ->
+            list.let {
+                //TODO list o lista?
+                adapter.setData(it)
+                binding.recycler.adapter = adapter
+            }
+        }
+
+        //lista = database.libroDao.getLibros()
     }
 
     private fun swipe() {
@@ -77,7 +94,7 @@ class MainActivity : AppCompatActivity() {
 
     //menus
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        val menuInflater = menuInflater.inflate(R.menu.menu,menu)
+        menuInflater.inflate(R.menu.menu,menu)
         return super.onCreateOptionsMenu(menu)
     }
 

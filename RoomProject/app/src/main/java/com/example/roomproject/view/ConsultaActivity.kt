@@ -1,15 +1,12 @@
 package com.example.roomproject.view
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.SearchView
-import android.widget.Toast
-import androidx.lifecycle.observe
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
-import com.example.roomproject.R
 import com.example.roomproject.databinding.ActivityConsultaBinding
 import com.example.roomproject.librosAdapter.RecyclerAdapter
 import com.example.roomproject.model.LibrosDataBase
@@ -28,10 +25,10 @@ class ConsultaActivity : AppCompatActivity() {
     lateinit var lista: MutableList<LibrosDataClass>
     lateinit var adapter: RecyclerAdapter
 
-    var termino=""
+    var termino = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding= ActivityConsultaBinding.inflate(layoutInflater)
+        binding = ActivityConsultaBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         val database = Room.databaseBuilder(
@@ -41,22 +38,30 @@ class ConsultaActivity : AppCompatActivity() {
             .build()
 
 
-        val inventario = database.libroDao.getLibros()
 
         binding.recyclerView.layoutManager = LinearLayoutManager(this)
         binding.recyclerView.setHasFixedSize(true)
-        adapter = RecyclerAdapter(inventario)
-        binding.recyclerView.adapter = adapter
+
+        /*
+        viewModel.libroDao.getLibros().observe(this) { list ->
+            list.let {
+                adapter.setData(it)
+                binding.recyclerView.adapter = adapter
+            }
+        }
+        Queremos enseñar todos los datos en el otro activity?
+        */
+
 
         setUp()
     }
 
     private fun setUp() {
 
-        binding.searchView.setOnQueryTextListener(object: SearchView.OnQueryTextListener{
+        binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(p0: String?): Boolean {
-                if(!p0.isNullOrEmpty()){
-                    termino=p0
+                if (!p0.isNullOrEmpty()) {
+                    termino = p0
                 }
                 return true
             }
@@ -66,16 +71,16 @@ class ConsultaActivity : AppCompatActivity() {
             }
 
         })
-        binding.rgConsulta.setOnCheckedChangeListener { radioGroup, i ->
-            when(i){
-                binding.rdId.id->{
-                    val num =  termino.toInt()
+        binding.rgConsulta.setOnCheckedChangeListener { _, i ->
+            when (i) {
+                binding.rdId.id -> {
+                    val num = termino.toInt()
                     buscaId(num)
                 }
-                binding.rdAutor.id->{
+                binding.rdAutor.id -> {
                     buscaAutor(termino)
                 }
-                binding.rdTitulo.id->{
+                binding.rdTitulo.id -> {
                     buscarTitulo(termino)
                 }
             }
@@ -85,15 +90,15 @@ class ConsultaActivity : AppCompatActivity() {
     private fun buscarTitulo(c: String) {
         val buscar = "%$c%"
 
-        viewModel.libroDao.getTitulo(c).observe(this, { list ->
+        viewModel.libroDao.getTitulo(c).observe(this) { list ->
             list.let {
                 adapter.setData(it)
             }
-        })
+        }
 
     }
 
-    private fun buscaAutor(c : String) {
+    private fun buscaAutor(c: String) {
         val buscar = "%$c%"
 
         viewModel.libroDao.getAutor(c).observe(this, { list ->
